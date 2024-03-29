@@ -9,8 +9,8 @@ const NewsLetterSchema = new mongoose.Schema({
     }
 })
 
-const newsLetterEntry = mongoose.model('News-Letter-Emails', NewsLetterSchema)
+export const newsLetterEntry = mongoose.model('News-Letter-Emails', NewsLetterSchema)
 
 
-module.exports = {newsLetterEntry}
+module.exports = { newsLetterEntry };
 
