@@ -5,11 +5,11 @@ import p3 from "../assets/p3.jpg";
 
 function Experts() {
   return (
-    <div className="pt-16 ">
+    <div className="pt-16 " >
       <div className="relative">
         <img src={bg} className="rounded-t-full"></img>
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="flex justify-center text-5xl font-bold pt-32 pb-28">
+          <div className="flex justify-center text-5xl font-bold pt-32 pb-28" id="speakerss">
             Meet Our Experts
           </div>
           <div className="py-5 px-28 flex justify-center">

@@ -2,7 +2,7 @@ import footerImage from "../assets/footer.jpg";
 
 function Footer() {
   return (
-    <footer className="relative">
+    <footer className="relative" id="news">
       <img
         src={footerImage}
         className="absolute inset-0 h-[370px] w-full object-cover z-0"

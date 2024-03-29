@@ -10,7 +10,7 @@ function Home() {
         <div className="w-1/2 text-9xl font-bold">
           Welcome to LPG Automation System
         </div>
-        <div className="w-1/2">
+        <div className="w-1/2 pl-10">
           <img className="rounded-3xl " src={img}></img>
         </div>
       </div>
