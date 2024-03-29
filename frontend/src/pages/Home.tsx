@@ -1,6 +1,7 @@
 import img from "../assets/im.jpg";
 import About from "../components/About";
 import Experts from "../components/Experts";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -23,6 +24,7 @@ function Home() {
       </div>
       <About/>
       <Experts/>
+      <Footer/>
     </div>
   );
 }
