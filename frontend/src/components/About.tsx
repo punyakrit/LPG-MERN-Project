@@ -1,11 +1,11 @@
-import img from "../../public/im.jpg";
+import img from "../assets/mig.jpg";
 
 function About() {
   return (
-    <div className="py-20">
+    <div className="py-20 px-10">
       <div className="flex items-center">
         <div className="w-2/3">
-            <img className="object-fill h-[500px]" src={img}></img>
+            <img className="object-fill h-[500px] rounded-2xl hover:rotate-12 transform duration-500" src={img}></img>
         </div>
         <div className="w-1/3 flex flex-col text-left items-center">
           <div className="text-6xl font-bold">About LPG Automation Systems</div>

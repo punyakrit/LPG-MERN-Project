@@ -1,10 +1,11 @@
-import img from "../../public/im.jpg";
+import img from "../assets/im.jpg";
 import About from "../components/About";
+import Experts from "../components/Experts";
 
 function Home() {
   return (
-    <div className="w-screen px-10">
-      <div className="my-20  flex items-center">
+    <div className="w-screen ">
+      <div className="my-20 px-10 flex items-center">
         <div className="w-1/2 text-9xl font-bold">
           Welcome to LPG Automation System
         </div>
@@ -12,7 +13,7 @@ function Home() {
           <img className="rounded-3xl " src={img}></img>
         </div>
       </div>
-      <div className="flex flex-col items-center py-10">
+      <div className="flex flex-col items-center py-10 px-10">
         <div className="text-2xl">
         Ensuring the Highest Safety Standards in Industrial Gas Supply 
         </div>
@@ -21,6 +22,7 @@ function Home() {
         </div>
       </div>
       <About/>
+      <Experts/>
     </div>
   );
 }
