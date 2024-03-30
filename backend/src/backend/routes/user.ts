@@ -4,7 +4,11 @@ const route = express.Router()
 import { User } from '../db'
 import jwt from 'jsonwebtoken'
 import JWT_SECRET from '../config'
+import { authMiddleware } from '../middleware'
 
+
+
+//   create user
 const userSchema = zod.object({
     username: zod.string(),
     email: zod.string().email(),
@@ -34,8 +38,8 @@ route.post('/signup', async (req, res) => {
         }
 
         const user = await User.create(body)
-        const userId = user._id
-        const token = jwt.sign({ userId }, JWT_SECRET);
+
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
         res.json({
             message: "User Created",
@@ -51,6 +55,27 @@ route.post('/signup', async (req, res) => {
         })
     }
 })
+
+
+
+route.get('/auth', authMiddleware , async (req, res) => {
+    try {
+        const user = await User.findOne({
+            _id: req.userId
+        });
+
+        res.json({
+            user: user // Assuming you want to send user data back
+        });
+
+    } catch (e) {
+        res.json({
+            message: e // Sending error message back
+        });
+    }
+});
+
+
 
 
 
