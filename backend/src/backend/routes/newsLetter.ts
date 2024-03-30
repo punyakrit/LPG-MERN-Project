@@ -17,10 +17,11 @@ route.post('/', async (req, res) => {
     const { success } = emailSchema.safeParse(req.body)
 
     if (!success) {
-        res.json({
+       return res.json({
             message: "Error Occured Enter correct values"
         })
     }
+    
     try {
         const exists = await newsLetterEntry.findOne({
             email: body.email
