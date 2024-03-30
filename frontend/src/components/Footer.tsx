@@ -1,6 +1,7 @@
 import { useState } from "react";
 import footerImage from "../assets/footer.jpg";
 import axios from 'axios';
+import URI from '../config'
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -9,7 +10,7 @@ function Footer() {
 
   async function handleSignup() {
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/newsletter/', {
+      const res = await axios.post(`${URI}/api/v1/newsletter/`, {
         email
       });
       setSent(true);
