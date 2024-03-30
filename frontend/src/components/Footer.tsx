@@ -10,7 +10,7 @@ function Footer() {
 
   async function handleSignup() {
     try {
-      const res = await axios.post(`${URI}/api/v1/newsletter/`, {
+      await axios.post(`${URI}/api/v1/newsletter/`, {
         email
       });
       setSent(true);
