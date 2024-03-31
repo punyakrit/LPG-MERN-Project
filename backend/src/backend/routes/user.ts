@@ -5,8 +5,17 @@ import { User , Otp} from '../db'
 import jwt from 'jsonwebtoken'
 import JWT_SECRET from '../config'
 import { authMiddleware } from '../middleware'
+import nodemailer from 'nodemailer'
 
 
+var transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: 'shea.fisher@ethereal.email',
+        pass: 'J4K9ydubk5CtP3jdzV'
+    }
+  });
 
 //   create user
 const userSchema = zod.object({
@@ -47,6 +56,21 @@ route.post('/signup', async (req, res) => {
 
         const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
+        const mailOptions = {
+            from: '"LPG Automation PVT "<lpg-auth@gmail.com>',
+            to: body.email,
+            subject: 'Your OTP for Signup',
+            text: `Enter Your OTP for authentication is: ${otp}`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error("Error sending email:", error);
+            } else {
+                console.log("Email sent:", info.response);
+            }
+        });
+
         res.json({
             message: "User Created",
             user,
@@ -63,7 +87,7 @@ route.post('/signup', async (req, res) => {
     }
 })
 
-
+route.post('signin')
 
 route.get('/auth', authMiddleware , async (req, res) => {
     try {
@@ -83,8 +107,35 @@ route.get('/auth', authMiddleware , async (req, res) => {
 });
 
 
-route.post('/verify-otp',(req,res)=>{
+route.post('/verify-otp',authMiddleware,async (req,res)=>{
+    const body = req.body
 
+try{
+    const otpEntry = await Otp.findOne({
+        userId: req.userId,
+        otp: body.otp
+    })
+
+    if(!otpEntry){
+        return res.json("Invalid Otp")
+    }
+
+    await User.findOneAndUpdate({
+        _id: req.userId
+    },{
+        verified: true
+    })
+
+    res.json({
+        message: "Opt Verified Successful"
+    })
+
+}catch(e){
+    res.json({
+        message:"Server crashed in otp",
+        e
+    })
+}
 })
 
 
