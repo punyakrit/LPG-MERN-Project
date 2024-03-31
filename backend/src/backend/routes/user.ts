@@ -1,7 +1,7 @@
 import express from 'express'
 import zod, { string } from 'zod'
 const route = express.Router()
-import { User , Otp} from '../db'
+import { User, Otp } from '../db'
 import jwt from 'jsonwebtoken'
 import JWT_SECRET from '../config'
 import { authMiddleware } from '../middleware'
@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport({
         user: 'shea.fisher@ethereal.email',
         pass: 'J4K9ydubk5CtP3jdzV'
     }
-  });
+});
 
 //   create user
 const userSchema = zod.object({
@@ -77,7 +77,7 @@ route.post('/signup', async (req, res) => {
             token
         })
 
-        
+
 
     } catch (e) {
         console.log(e)
@@ -87,55 +87,97 @@ route.post('/signup', async (req, res) => {
     }
 })
 
-route.post('signin')
+// Login Schema
+const loginSchema = zod.object({
+    email: zod.string().email(),
+    password: zod.string().min(6)
+})
+// Login Route
+route.post('/signin', async (req, res) => {
+    const body = req.body
 
-route.get('/auth', authMiddleware , async (req, res) => {
+    const { success } = loginSchema.safeParse(req.body)
+    if(!success){
+        return res.json({
+            message:"Enter correct Input values"
+        })
+    }
+
+    try{
+
+        const user = await User.findOne({
+            email: body.email,
+            password: body.password
+        })
+
+        if(!user){
+            return res.json({
+                message: "Enter Correct User Credentials"
+            }) 
+        }
+        
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+
+        res.json({
+            message: "Login Successful",
+            token
+        })
+
+    }catch{
+        message: "Server crashed"
+    }
+})
+
+
+
+
+route.get('/auth', authMiddleware, async (req, res) => {
     try {
         const user = await User.findOne({
             _id: req.userId
         });
 
         res.json({
-            user: user 
+            user: user
         });
 
     } catch (e) {
         res.json({
-            message: e 
+            message: e
         });
     }
 });
 
 
-route.post('/verify-otp',authMiddleware,async (req,res)=>{
+route.post('/verify-otp', authMiddleware, async (req, res) => {
     const body = req.body
 
-try{
-    const otpEntry = await Otp.findOne({
-        userId: req.userId,
-        otp: body.otp
-    })
+    try {
+        const otpEntry = await Otp.findOne({
+            userId: req.userId,
+            otp: body.otp
+        })
 
-    if(!otpEntry){
-        return res.json("Invalid Otp")
+        if (!otpEntry) {
+            return res.json("Invalid Otp")
+        }
+
+        await User.findOneAndUpdate({
+            _id: req.userId
+        }, {
+            verified: true
+        })
+
+        res.json({
+            message: "Opt Verified Successful"
+        })
+
+    } catch (e) {
+        res.json({
+            message: "Server crashed in otp",
+            e
+        })
     }
-
-    await User.findOneAndUpdate({
-        _id: req.userId
-    },{
-        verified: true
-    })
-
-    res.json({
-        message: "Opt Verified Successful"
-    })
-
-}catch(e){
-    res.json({
-        message:"Server crashed in otp",
-        e
-    })
-}
 })
 
 
