@@ -1,11 +1,13 @@
 import img from "../assets/im.jpg";
 import About from "../components/About";
+import Appbar from "../components/Appbar";
 import Experts from "../components/Experts";
 import Footer from "../components/Footer";
 
 function Home() {
   return (
     <div className="w-screen ">
+      <Appbar/>
       <div className="my-20 px-10 flex items-center">
         <div className="w-1/2 text-9xl font-bold">
           Welcome to LPG Automation System

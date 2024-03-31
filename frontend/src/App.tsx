@@ -1,14 +1,22 @@
-import Appbar from "./components/Appbar"
-import Home from "./pages/Home"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Error from "./pages/Error";
+import Signin from "./pages/Signin";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <div className="bg-gray-950 h-max text-white">
-      <Appbar/>
-      <Home/>
-      
-    </div>
-  )
+    <BrowserRouter>
+      <div className="bg-gray-950 h-max text-white">
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/signin" element={<Signin/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="*" element={<Error/>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
