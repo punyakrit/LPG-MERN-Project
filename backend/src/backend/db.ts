@@ -38,10 +38,38 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         require: false,
         default: false
+    },
+    admin:{
+        type: Boolean,
+        require: false,
+        default: false
     }
 })
 
 export const User = mongoose.model('User',UserSchema)
 
-module.exports = { newsLetterEntry , User};
+
+//  Create opt table generate random otp with ref to user id 
+
+const otpSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    otp: {
+        type: Number,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    }
+});
+
+export const Otp = mongoose.model('Otp', otpSchema);
+
+
+module.exports = { newsLetterEntry , User, Otp};
 

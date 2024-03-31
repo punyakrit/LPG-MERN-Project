@@ -1,7 +1,7 @@
 import express from 'express'
 import zod, { string } from 'zod'
 const route = express.Router()
-import { User } from '../db'
+import { User , Otp} from '../db'
 import jwt from 'jsonwebtoken'
 import JWT_SECRET from '../config'
 import { authMiddleware } from '../middleware'
@@ -39,6 +39,12 @@ route.post('/signup', async (req, res) => {
 
         const user = await User.create(body)
 
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        await Otp.create({
+            userId: user._id,
+            otp
+        })
+
         const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
         res.json({
@@ -47,6 +53,7 @@ route.post('/signup', async (req, res) => {
             token
         })
 
+        
 
     } catch (e) {
         console.log(e)
@@ -65,16 +72,20 @@ route.get('/auth', authMiddleware , async (req, res) => {
         });
 
         res.json({
-            user: user // Assuming you want to send user data back
+            user: user 
         });
 
     } catch (e) {
         res.json({
-            message: e // Sending error message back
+            message: e 
         });
     }
 });
 
+
+route.post('/verify-otp',(req,res)=>{
+
+})
 
 
 
