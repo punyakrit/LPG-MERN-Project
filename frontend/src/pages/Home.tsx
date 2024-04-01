@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 function Home() {
   return (
-    <div className="w-screen ">
+    <div className=" ">
       <Appbar/>
       <div className="my-20 px-10 flex items-center">
         <div className="w-1/2 text-9xl font-bold">

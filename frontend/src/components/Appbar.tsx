@@ -83,9 +83,9 @@ function Appbar() {
           </div>
           <div
             className="cursor-pointer text-white/50 hover:text-white transition duration-500 ease-in-out"
-            onClick={() => Navigate("/shop")}
+            onClick={() => Navigate("/contact")}
           >
-            Book Online
+            Conatct Us
           </div>
           <div
             className="cursor-pointer text-white/50 hover:text-white transition duration-500 ease-in-out"
@@ -96,9 +96,11 @@ function Appbar() {
 
           <div
             className="cursor-pointer text-white/50 hover:text-white transition duration-500 ease-in-out"
-            onClick={() => Navigate("/signup")}
+            onClick={()=>{
+              isLoggedIn ? Navigate('/shop') : Navigate('/signup')
+            }}
           >
-            Register now
+            {isLoggedIn ? `Shop` : `Register`}
           </div>
         </div>
       </div>
