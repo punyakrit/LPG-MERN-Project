@@ -7,7 +7,7 @@ function Experts() {
   return (
     <div className="pt-16 " >
       <div className="relative">
-        <img src={bg} className="rounded-t-full"></img>
+        <img src={bg} className="rounded-t-full px-10"></img>
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="flex justify-center text-5xl font-bold pt-32 pb-28" id="speakerss">
             Meet Our Experts
