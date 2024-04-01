@@ -9,11 +9,13 @@ import nodemailer from 'nodemailer'
 
 
 var transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
+    service:'gmail',
+    host: 'smtp.gmail.com',
     port: 587,
+    secure:false,
     auth: {
-        user: 'shea.fisher@ethereal.email',
-        pass: 'J4K9ydubk5CtP3jdzV'
+        user: 'mail.sender.lpu@gmail.com',
+        pass: 'vwrmktsodduhkhkm'
     }
 });
 
@@ -160,6 +162,17 @@ route.post('/verify-otp', authMiddleware, async (req, res) => {
 
         if (!otpEntry) {
             return res.json("Invalid Otp")
+        }
+
+        const alreadyVrified = await User. findOne({
+            _id: req.userId,
+            verified: true
+        })
+
+        if(alreadyVrified){
+            return res.json({
+                message:"User is already verified"
+            })
         }
 
         await User.findOneAndUpdate({

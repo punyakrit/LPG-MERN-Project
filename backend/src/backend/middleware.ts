@@ -14,6 +14,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
+        console.log(authHeader)
         return res.status(403).json({
             message: "Not authenticated"
         });

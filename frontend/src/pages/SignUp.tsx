@@ -27,7 +27,7 @@ function SignUp() {
             const token = res.data.token
             if(token){
                 localStorage.setItem('token', "Bearer "+ token)
-                Navigate('/shop');
+                Navigate('/otp-verify');
             }else{
                 setError("Token Not found")
             }
