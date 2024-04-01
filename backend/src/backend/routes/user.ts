@@ -22,7 +22,7 @@ const userSchema = zod.object({
     username: zod.string(),
     email: zod.string().email(),
     name: zod.string(),
-    phoneNo: zod.number(),
+    phoneNo: zod.string(),
     password: zod.string().min(6)
 })
 route.post('/signup', async (req, res) => {
