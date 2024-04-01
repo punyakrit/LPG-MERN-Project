@@ -193,6 +193,46 @@ route.post('/verify-otp', authMiddleware, async (req, res) => {
     }
 })
 
+//  sending otp
+route.get('/send-otp', authMiddleware, async (req, res) => {
+    try {
+      const otp = await Otp.findOne({ userId: req.userId });
+      const user = await User.findOne({ _id: req.userId });
+  
+      if (!otp || !user) {
+        return res.status(404).json({ message: 'User or OTP not found' });
+      }
+  
+      const email = user.email;
+      const otpValue = otp.otp;
+  
+      if (!email) {
+        return res.status(400).json({ message: 'Email address is missing' });
+      }
+  
+      console.log(otpValue);
+  
+      const mailOptions = {
+        from: '"LPG Automation PVT "<lpg-auth@gmail.com>',
+        to: email,
+        subject: 'Your OTP for Signup',
+        text: `Enter Your OTP for authentication is: ${otpValue}`,
+      };
+  
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending email:", error);
+          return res.status(500).json({ message: 'Failed to send email' });
+        } else {
+          console.log("Email sent:", info.response);
+          return res.json({ message: "Email Sent!!" });
+        }
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
 
 

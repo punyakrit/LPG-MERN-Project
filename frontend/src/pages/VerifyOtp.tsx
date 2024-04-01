@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import URI from "../config";
 import { useNavigate } from "react-router-dom";
@@ -7,18 +7,33 @@ function VerifyOtp() {
   const Navigate = useNavigate();
   const [otp, setOtp] = useState(["", "", "", ""]);
 
+  useEffect(()=>{
+    const interval = setInterval(async()=>{
+        const token = localStorage.getItem('token')
+        const res = await axios.get(`${URI}/api/v1/user/auth`,{
+            headers: {
+                Authorization: token,
+              },
+        })
+        if(res.data.user.verified == true){
+            Navigate('/shop')
+        }
+    },1500)
+
+    return () => clearInterval(interval);
+
+  },[])
+
   const handleChange = (index: any, value: any) => {
     if (isNaN(parseInt(value))) return;
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
 
-    // Move focus to the next input field if a digit is entered
     if (value !== "" && index < 3) {
       document.getElementById(`otp-input-${index + 1}`)?.focus();
     }
 
-    // Handle backspace to delete digits
     if (value === "" && index > 0) {
       const previousIndex = index - 1;
       updatedOtp[previousIndex] = "";
@@ -27,8 +42,13 @@ function VerifyOtp() {
     }
   };
 
-  const handleResend = () => {
-    // Implement logic to resend OTP
+  const handleResend = async() => {
+    const token = localStorage.getItem('token')
+    await axios.get(`${URI}/api/v1/user/send-otp`,{
+        headers:{
+            Authorization: token
+        }
+    })
     alert("OTP resent");
   };
 
