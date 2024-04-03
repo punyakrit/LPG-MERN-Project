@@ -4,7 +4,7 @@ import { string } from "zod";
 mongoose.connect('mongodb+srv://punyakritsinghmakhni:2002%40Anoop@cluster0.8ok11ce.mongodb.net/lpg-mern-project');
 
 const NewsLetterSchema = new mongoose.Schema({
-    email:{
+    email: {
         type: String,
         require: true
     }
@@ -13,40 +13,40 @@ const NewsLetterSchema = new mongoose.Schema({
 export const newsLetterEntry = mongoose.model('News-Letter-Emails', NewsLetterSchema)
 
 const UserSchema = new mongoose.Schema({
-    username:{
-        type:String,
+    username: {
+        type: String,
         require: true,
     },
-    email:{
-        type:String,
-        require: true
-    },
-    name:{
+    email: {
         type: String,
         require: true
     },
-    phoneNo:{
+    name: {
         type: String,
-        require: true,
-        length:10
-    },
-    password:{
-        type:String,
         require: true
     },
-    verified:{
+    phoneNo: {
+        type: String,
+        require: true,
+        length: 10
+    },
+    password: {
+        type: String,
+        require: true
+    },
+    verified: {
         type: Boolean,
         require: false,
         default: false
     },
-    admin:{
+    admin: {
         type: Boolean,
         require: false,
         default: false
     }
 })
 
-export const User = mongoose.model('User',UserSchema)
+export const User = mongoose.model('User', UserSchema)
 
 
 //  Create opt table generate random otp with ref to user id 
@@ -71,5 +71,22 @@ const otpSchema = new mongoose.Schema({
 export const Otp = mongoose.model('Otp', otpSchema);
 
 
-module.exports = { newsLetterEntry , User, Otp};
+const contactSchmae = new mongoose.Schema({
+    name: {
+        type: String,
+    },
+    email:{
+        tpye: String,
+    },
+    text:{
+        type: String,
+    } 
+})
+
+export const Contact = mongoose.model('contact' , contactSchmae)
+
+
+
+
+module.exports = { newsLetterEntry, User, Otp ,Contact };
 
