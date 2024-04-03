@@ -1,10 +1,24 @@
+import { useEffect } from "react";
 import img from "../assets/im.jpg";
 import About from "../components/About";
 import Appbar from "../components/Appbar";
 import Experts from "../components/Experts";
 import Footer from "../components/Footer";
+import axios from "axios";
+import URI from "../config";
 
 function Home() {
+  
+    useEffect(()=>{
+      const interval = setInterval(()=>{
+        axios.get(`${URI}/api/v1/`)
+      },10000)
+      
+      return () => clearInterval(interval)
+    },[])
+  
+  
+  
   return (
     <div className=" ">
       <Appbar/>
