@@ -76,7 +76,7 @@ const contactSchmae = new mongoose.Schema({
         type: String,
     },
     email:{
-        tpye: String,
+        type: String,
     },
     text:{
         type: String,

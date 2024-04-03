@@ -27,9 +27,16 @@ route.post('/',async(req,res)=>{
     }
     try{
 
-        await Contact.create(body)
+        const form = await Contact.create({
+            name :body.name,
+            email: body.email,
+            text: body.text
+        })
+
         res.json({
-            message: "Form Submitted"
+            message: "Form Submitted",
+            form
+
         })
     }catch{
         res.json({
