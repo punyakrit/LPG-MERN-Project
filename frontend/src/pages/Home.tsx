@@ -6,6 +6,7 @@ import Experts from "../components/Experts";
 import Footer from "../components/Footer";
 import axios from "axios";
 import URI from "../config";
+import Internet from "../components/Internet";
 
 function Home() {
   
@@ -21,6 +22,7 @@ function Home() {
   
   return (
     <div className=" ">
+      <Internet/>
       <Appbar/>
       <div className="my-20 px-10 flex items-center">
         <div className="w-1/2 text-9xl font-bold">

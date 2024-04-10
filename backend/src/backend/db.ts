@@ -44,7 +44,11 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         require: false,
         default: false
-    }
+    },
+    orders:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }]
 })
 
 export const User = mongoose.model('User', UserSchema)
