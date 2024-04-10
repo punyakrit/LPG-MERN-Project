@@ -99,7 +99,7 @@ function Shop() {
         </div>
         <div className="flex py-4 justify-between px-8">
           <div>
-            item : <span className="font-semibold">1</span>
+            item : <span className="font-semibold">{data.length}</span>
           </div>
           <div>
             Total : <span className="font-semibold">${totalAmount}</span>
@@ -122,9 +122,10 @@ function Shop() {
             <div>
               Total cost - <span className="font-semibold">${totalAmount}</span>
             </div>
-            <div className="text-3xl font-semibold border px-5 py-3 rounded-2xl mt-4 cursor-pointer">
+            <a href="https://buy.stripe.com/test_cN2g0Z5Lj8CS96EdQQ"><div className="text-3xl font-semibold border px-5 py-3 rounded-2xl mt-4 cursor-pointer" >
               Pay now
             </div>
+            </a>
           </div>
         </div>
       </div>
