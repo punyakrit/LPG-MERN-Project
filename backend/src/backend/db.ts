@@ -76,18 +76,61 @@ const contactSchmae = new mongoose.Schema({
     name: {
         type: String,
     },
-    email:{
+    email: {
         type: String,
     },
-    text:{
+    text: {
         type: String,
-    } 
+    }
 })
 
-export const Contact = mongoose.model('contact' , contactSchmae)
+
+export const Contact = mongoose.model('contact', contactSchmae)
+
+const orderSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    phoneno: {
+        type: String,
+        required: true
+    },
+    product: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: String,
+        required: true
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    }
+})
+
+const Order = mongoose.model('Orders',orderSchema)
 
 
-
-
-module.exports = { newsLetterEntry, User, Otp ,Contact };
+module.exports = { newsLetterEntry, User, Otp, Contact };
 

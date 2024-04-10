@@ -17,13 +17,26 @@ function Appbar() {
     async function call() {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${URI}/api/v1/user/auth`, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        setData(res.data.user);
-        setIsLoggedIn(true);
+          
+        if(token){
+          const res = await axios.get(`${URI}/api/v1/user/auth`, {
+            headers: {
+              Authorization: token,
+            },
+          });
+          
+          if (res.data.user.username) {
+            setData(res.data.user);
+            setIsLoggedIn(true);
+          } else {
+            // Username doesn't exist in the database, remove token
+            localStorage.removeItem('token');
+            setIsLoggedIn(false);
+          }
+        } else {
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+        }
       } catch {
         setIsLoggedIn(false);
         console.log("error");
@@ -31,6 +44,7 @@ function Appbar() {
     }
     call();
   }, []);
+  
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token from localStorage
     setIsLoggedIn(false); // Set login status to false
