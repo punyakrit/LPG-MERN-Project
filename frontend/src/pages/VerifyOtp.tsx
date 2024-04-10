@@ -44,7 +44,7 @@ function VerifyOtp() {
 
   const handleResend = async() => {
     const token = localStorage.getItem('token')
-    await axios.get(`${URI}/api/v1/user/send-otp`,{
+    await axios.get(`${URI}/api/v1/otp/send-otp`,{
         headers:{
             Authorization: token
         }
@@ -57,7 +57,7 @@ function VerifyOtp() {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `${URI}/api/v1/user/verify-otp`,
+        `${URI}/api/v1/otp/verify-otp`,
         { otp: enteredOtp },
         {
           headers: {

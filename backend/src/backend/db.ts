@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { string } from "zod";
-
-mongoose.connect('mongodb+srv://punyakritsinghmakhni:2002%40Anoop@cluster0.8ok11ce.mongodb.net/lpg-mern-project');
+require('dotenv').config();
+// @ts-ignore
+mongoose.connect(process.env.MONGODB_URI);
 
 const NewsLetterSchema = new mongoose.Schema({
     email: {
