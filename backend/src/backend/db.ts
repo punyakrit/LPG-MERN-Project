@@ -133,8 +133,8 @@ const orderSchema = new mongoose.Schema({
     }
 })
 
-const Order = mongoose.model('Orders',orderSchema)
+export const Order = mongoose.model('Orders',orderSchema)
 
 
-module.exports = { newsLetterEntry, User, Otp, Contact };
+module.exports = { newsLetterEntry, User, Otp, Contact, Order };
 
