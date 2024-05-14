@@ -1,6 +1,6 @@
 const URI = 
 // "http://localhost:3000" 
 // ||
- "http://lpg.infinitehealings.in"
+ "https://lpg-mern-project.onrender.com"
 
 export default URI
