@@ -13,7 +13,7 @@ function Home() {
     useEffect(()=>{
       const interval = setInterval(()=>{
         axios.get(`${URI}/api/v1/`)
-      },10000)
+      },3000)
       
       return () => clearInterval(interval)
     },[])
