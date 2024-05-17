@@ -108,12 +108,11 @@ function Shop() {
 
         <div className="text-xl my-4 pt-4">Orders :</div>
         <div className=" justify-between flex-col">
-          <div className="">
+          <div className="h-[300px] overflow-y-scroll">
             {data.map((ta,key) => (
               <OrderCard
                 key={key}
                 name={ta.name}
-                product={ta.product}
                 quantity={ta.quantity}
               />
             ))}
@@ -133,18 +132,17 @@ function Shop() {
   );
 }
 
-function OrderCard({name, product, quantity}: any) {
+function OrderCard({name, quantity}: any) {
   const amount = quantity * 100; // Assuming $100 is the price per unit
   return (
-    <div className="border p-4 my-5 rounded-2xl bg-white text-black shadow-2xl flex">
+    <div className="border p-3 my-5 rounded-2xl bg-white text-black shadow-2xl flex">
       <div>
-        <img src={lpg} alt="Product" className="w-52" />
+        <img src={lpg} alt="Product" className="w-36" />
       </div>
       <div>
-        <div className="text-xl font-bold">{name}</div>
-        <div className="text-xl font-bold">{product}</div>
-        <div className="text-xl font-bold">{quantity}</div>
-        <div className="text-xl font-bold">{amount}</div>
+        <div className="text-lg font-bold">{name}</div>
+        <div className="text-lg font-bold">Quantity: {quantity}</div>
+        <div className="text-lg font-bold">Amount : {amount}</div>
       </div>
     </div>
   );
